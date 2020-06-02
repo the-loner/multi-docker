@@ -7,7 +7,10 @@ before_install:
 
 script:
   - docker run -e CI=true the-loner/react-test npm test
-
+after_failure:
+        - for v in ~/shared/logs/*.log ; do
+          echo $v logtail ======================== ; tail -100 $v ;
+          done
 after_success:
  - docker build -t the-loner/multi-client ./client
  - docker build -t the-loner/multi-nginx ./nginx
