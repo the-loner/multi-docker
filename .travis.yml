@@ -3,24 +3,24 @@ services:
   - docker
 
 before_install: 
-  - docker build -t the-loner/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t theloner:react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true the-loner/react-test npm test
+  - docker run -e CI=true theloner/react-test npm test
 after_failure:
         - for v in ~/shared/logs/*.log ; do
           echo $v logtail ======================== ; tail -100 $v ;
           done
 after_success:
- - docker build -t the-loner/multi-client ./client
- - docker build -t the-loner/multi-nginx ./nginx
- - docker build -t the-loner/multi-server ./server
- - docker build -t the-loner/multi-worker ./worker
+ - docker build -t theloner/multi-client ./client
+ - docker build -t theloner/multi-nginx ./nginx
+ - docker build -t theloner/multi-server ./server
+ - docker build -t theloner/multi-worker ./worker
 # Log in to the docker CLI
  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
 # Take those images and push them to docker hub
- - docker push the-loner/multi-client
- - docker push the-loner/multi-nginx
- - docker push the-loner/multi-server
- - docker push the-loner/multi-worker
+ - docker push theloner/multi-client
+ - docker push theloner/multi-nginx
+ - docker push theloner/multi-server
+ - docker push theloner/multi-worker
