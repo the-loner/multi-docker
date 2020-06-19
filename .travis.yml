@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install: 
-  - docker build -t theloner/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t theloner/multi-docker -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true theloner/react-test npm test
